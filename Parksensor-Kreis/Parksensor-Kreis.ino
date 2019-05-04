@@ -13,6 +13,9 @@
 // How many NeoPixels are attached to the Arduino?
 #define NUMPIXELS      16
 
+// was ist der maximale Abstand
+#define MAX_DISTANCE   32
+
 // When we setup the NeoPixel library, we tell it how many pixels, and which pin to use to send signals.
 // Note that for older NeoPixel strips you might need to change the third parameter--see the strandtest
 // example for more information on possible values.
@@ -54,19 +57,25 @@ void loop() {
   Serial.println(distance);
   // For a set of NeoPixels the first NeoPixel is 0, second is 1, all the way up to the count of pixels minus one.
 
-  for(int i=0;i<NUMPIXELS;i++){
+  for(int led =0; led < NUMPIXELS; led++){
      int color = 0;
     // pixels.Color takes RGB values, from 0,0,0 up to 255,255,255
-   // if (i > 10
-    if (i < distance){
-      color = 150;
+    if (led < distance){
+      if( distance <= MAX_DISTANCE ) {
+        // wir sind inerhalb des krittischen Bereiches
+        if ( distance > 16 ) {
+          pixels.setPixelColor(led, pixels.Color( 0, 50, 0));
+        } else if ( distance > 4 ) {
+          pixels.setPixelColor(led, pixels.Color( 50, 50, 0));        
+        } else {
+          pixels.setPixelColor(led, pixels.Color( 50, 0, 0));        
+        }
+      }
+       else {
+        pixels.setPixelColor(led, pixels.Color(0,0,0)); // Moderately bright green color.
+      }
     }
-    pixels.setPixelColor(i, pixels.Color(color,0,0)); // Moderately bright green color.
-    
-    pixels.show(); // This sends the updated pixel color to the hardware.
-
-    
-
   }
+  pixels.show(); // This sends the updated pixel color to the hardware.
   delay(0);
 }
