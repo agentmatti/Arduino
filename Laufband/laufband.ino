@@ -19,12 +19,7 @@
 Adafruit_NeoPixel pixels = Adafruit_NeoPixel(NUMPIXELS, PIN, NEO_GRB + NEO_KHZ800);
 
 int delayval = 2; // delay for half a second
-#define echoPin 7 // Echo Pin
-#define trigPin 8 // Trigger Pin
-#define LEDPin 13 // Onboard LED
-int maxRange = 200;
-int minRange = 0;
-long duration,distance;
+
 void setup() {
   // This is for Trinket 5V 16MHz, you can remove these three lines if you are not using a Trinket
 #if defined (__AVR_ATtiny85__)
@@ -33,40 +28,47 @@ void setup() {
   // End of trinket special code
 
   pixels.begin(); // This initializes the NeoPixel library.
-  Serial.begin (9600);
-  pinMode(trigPin, OUTPUT);
-  pinMode(echoPin, INPUT);
-  pinMode(LEDPin, OUTPUT);
 }
 
 void loop() {
-  digitalWrite(trigPin, LOW);
-  delayMicroseconds(2);
-  
-  digitalWrite(trigPin, HIGH);
-  delayMicroseconds(10);
-  
-  digitalWrite(trigPin, LOW);
-  duration = pulseIn(echoPin, HIGH);
-  
-  distance = duration/58.2;
-  
-  Serial.println(distance);
+
   // For a set of NeoPixels the first NeoPixel is 0, second is 1, all the way up to the count of pixels minus one.
 
   for(int i=0;i<NUMPIXELS;i++){
-     int color = 0;
+
     // pixels.Color takes RGB values, from 0,0,0 up to 255,255,255
-   // if (i > 10
-    if (i < distance){
-      color = 150;
-    }
-    pixels.setPixelColor(i, pixels.Color(color,0,0)); // Moderately bright green color.
-    
+    pixels.setPixelColor(i, pixels.Color(0,150,0)); // Moderately bright green color.
+
     pixels.show(); // This sends the updated pixel color to the hardware.
 
-    
+    delay(delayval); // Delay for a period of time (in milliseconds).
+
+  }  for(int i=0;i<NUMPIXELS;i++){
+
+    // pixels.Color takes RGB values, from 0,0,0 up to 255,255,255
+    pixels.setPixelColor(i, pixels.Color(150,0,0)); // Moderately bright green color.
+
+    pixels.show(); // This sends the updated pixel color to the hardware.
+
+    delay(delayval); // Delay for a period of time (in milliseconds).
+
+  }  for(int i=0;i<NUMPIXELS;i++){
+
+    // pixels.Color takes RGB values, from 0,0,0 up to 255,255,255
+    pixels.setPixelColor(i, pixels.Color(0,0,150)); // Moderately bright green color.
+
+    pixels.show(); // This sends the updated pixel color to the hardware.
+
+    delay(delayval); // Delay for a period of time (in milliseconds).
+
+  }  for(int i=0;i<NUMPIXELS;i++){
+
+    // pixels.Color takes RGB values, from 0,0,0 up to 255,255,255
+    pixels.setPixelColor(i, pixels.Color(75,0,75)); // Moderately bright green color.
+
+    pixels.show(); // This sends the updated pixel color to the hardware.
+
+    delay(delayval); // Delay for a period of time (in milliseconds).
 
   }
-  delay(0);
 }
