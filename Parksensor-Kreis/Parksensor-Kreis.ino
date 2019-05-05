@@ -19,7 +19,7 @@
 // When we setup the NeoPixel library, we tell it how many pixels, and which pin to use to send signals.
 // Note that for older NeoPixel strips you might need to change the third parameter--see the strandtest
 // example for more information on possible values.
-Adafruit_NeoPixel pixels = Adafruit_NeoPixel(NUMPIXELS, PIN, NEO_GRB + NEO_KHZ800);
+Adafruit_NeoPixel strip = Adafruit_NeoPixel(NUMPIXELS, PIN, NEO_GRB + NEO_KHZ800);
 
 int delayval = 2; // delay for half a second
 #define echoPin 7 // Echo Pin
@@ -35,7 +35,7 @@ void setup() {
 #endif
   // End of trinket special code
 
-  pixels.begin(); // This initializes the NeoPixel library.
+  strip.begin(); // This initializes the NeoPixel library.
   Serial.begin (9600);
   pinMode(trigPin, OUTPUT);
   pinMode(echoPin, INPUT);
@@ -58,24 +58,25 @@ void loop() {
   // For a set of NeoPixels the first NeoPixel is 0, second is 1, all the way up to the count of pixels minus one.
 
   for(int led =0; led < NUMPIXELS; led++){
-     int color = 0;
-    // pixels.Color takes RGB values, from 0,0,0 up to 255,255,255
+    uint32_t col_black = strip.Color(0, 0, 0);
+    int color = 0;
+    // strip.Color takes RGB values, from 0,0,0 up to 255,255,255
     if (led < distance){
       if( distance <= MAX_DISTANCE ) {
         // wir sind inerhalb des krittischen Bereiches
         if ( distance > 16 ) {
-          pixels.setPixelColor(led, pixels.Color( 0, 50, 0));
+          strip.setPixelColor(led, strip.Color( 0, 50, 0));
         } else if ( distance > 4 ) {
-          pixels.setPixelColor(led, pixels.Color( 50, 50, 0));        
+          strip.setPixelColor(led, strip.Color( 50, 50, 0));        
         } else {
-          pixels.setPixelColor(led, pixels.Color( 50, 0, 0));        
+          strip.setPixelColor(led, strip.Color( 50, 0, 0));        
         }
       }
        else {
-        pixels.setPixelColor(led, pixels.Color(0,0,0)); // Moderately bright green color.
+        strip.setPixelColor(led, strip.Color(0,0,0)); // Moderately bright green color.
       }
     }
   }
-  pixels.show(); // This sends the updated pixel color to the hardware.
+  strip.show(); // This sends the updated pixel color to the hardware.
   delay(0);
 }
