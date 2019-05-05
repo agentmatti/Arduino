@@ -6,9 +6,30 @@
   #include <avr/power.h>
 #endif
 
+// nodeMCU pin assignemnt
+// board name -> GPIO
+// digital pins only
+const uint8_t ESP_D0_PIN = 16;  // User-wake
+const uint8_t ESP_D1_PIN = 5;
+const uint8_t ESP_D2_PIN = 4;
+const uint8_t ESP_D3_PIN = 0;   
+const uint8_t ESP_D4_PIN = 2;   // TXD1 // also LED
+const uint8_t ESP_D5_PIN = 14;  // HSPICLK
+const uint8_t ESP_D6_PIN = 12;  // HSPIQ
+const uint8_t ESP_D7_PIN = 13;  // RXD2 - HSPID
+const uint8_t ESP_D8_PIN = 15;  // TXD2 - HSPID
+const uint8_t ESP_D9_PIN = 3;   // RXD0
+const uint8_t ESP_D10_PIN = 1;   // TXD0
+const uint8_t ESP_D11_PIN = 9;   // SPIHD
+const uint8_t ESP_D12_PIN = 10;  // SPIWP
+
+
 // Which pin on the Arduino is connected to the NeoPixels?
 // On a Trinket or Gemma we suggest changing this to 1
-#define PIN            6
+// either use arduino pin numbers, or use ESP_Dx Pins for esp8266
+#define PIN_STRIP      6
+// ESP sample
+// #define PIN ESP_D6_PIN
 
 // How many NeoPixels are attached?
 #define NUMPIXELS      16
@@ -28,13 +49,16 @@ long MAX_DISTANCE  = 32;
 // When we setup the NeoPixel library, we tell it how many pixels, and which pin to use to send signals.
 // Note that for older NeoPixel strips you might need to change the third parameter--see the strandtest
 // example for more information on possible values.
-Adafruit_NeoPixel strip = Adafruit_NeoPixel(NUMPIXELS, PIN, NEO_GRB + NEO_KHZ800);
+Adafruit_NeoPixel strip = Adafruit_NeoPixel(NUMPIXELS, PIN_STRIP, NEO_GRB + NEO_KHZ800);
 
 
 // variabled for the sonic sensor
-int delayval = 2; // delay for half a second
-#define echoPin 7 // Echo Pin
-#define trigPin 8 // Trigger Pin
+int delayval = 2; // delay microseconds for sonic sensor
+
+#define EchoPin_Sonic 7 // Echo Pin
+#define TrigPin_Sonic 8 // Trigger Pin
+
+// just to know.
 #define LEDPin 13 // Onboard LED
 int maxRange = 200;
 int minRange = 0;
@@ -50,20 +74,20 @@ void setup() {
 
   strip.begin(); // This initializes the NeoPixel library.
   Serial.begin (9600);
-  pinMode(trigPin, OUTPUT);
-  pinMode(echoPin, INPUT);
+  pinMode(TrigPin_Sonic, OUTPUT);
+  pinMode(EchoPin_Sonic, INPUT);
   pinMode(LEDPin, OUTPUT);
 }
 
 void loop() {
-  digitalWrite(trigPin, LOW);
-  delayMicroseconds(2);
+  digitalWrite(TrigPin_Sonic, LOW);
+  delayMicroseconds(delayval);
   
-  digitalWrite(trigPin, HIGH);
+  digitalWrite(TrigPin_Sonic, HIGH);
   delayMicroseconds(10);
   
-  digitalWrite(trigPin, LOW);
-  duration = pulseIn(echoPin, HIGH);
+  digitalWrite(TrigPin_Sonic, LOW);
+  duration = pulseIn(EchoPin_Sonic, HIGH);
   
   distance = duration/58.2;
 
