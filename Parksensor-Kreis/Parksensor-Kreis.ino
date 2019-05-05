@@ -57,23 +57,26 @@ void loop() {
   Serial.println(distance);
   // For a set of NeoPixels the first NeoPixel is 0, second is 1, all the way up to the count of pixels minus one.
 
+  uint32_t col_off = strip.Color(0, 0, 0);
+  uint32_t col_green = strip.Color(0, 50, 0);
+  uint32_t col_yellow = strip.Color(50, 50, 0);
+  uint32_t col_red = strip.Color(50, 0, 0);
+
   for(int led =0; led < NUMPIXELS; led++){
-    uint32_t col_black = strip.Color(0, 0, 0);
-    int color = 0;
     // strip.Color takes RGB values, from 0,0,0 up to 255,255,255
     if (led < distance){
       if( distance <= MAX_DISTANCE ) {
         // wir sind inerhalb des krittischen Bereiches
         if ( distance > 16 ) {
-          strip.setPixelColor(led, strip.Color( 0, 50, 0));
+          strip.setPixelColor(led, col_green);
         } else if ( distance > 4 ) {
-          strip.setPixelColor(led, strip.Color( 50, 50, 0));        
+          strip.setPixelColor(led, col_yellow);        
         } else {
-          strip.setPixelColor(led, strip.Color( 50, 0, 0));        
+          strip.setPixelColor(led, col_red);        
         }
       }
        else {
-        strip.setPixelColor(led, strip.Color(0,0,0)); // Moderately bright green color.
+        strip.setPixelColor(led, col_off); // Moderately bright green color.
       }
     }
   }
