@@ -10,11 +10,20 @@
 // On a Trinket or Gemma we suggest changing this to 1
 #define PIN            6
 
-// How many NeoPixels are attached to the Arduino?
+// How many NeoPixels are attached?
 #define NUMPIXELS      16
 
-// was ist der maximale Abstand
-#define MAX_DISTANCE   32
+// max distance in cm (centimeters) for the sensor 
+long MAX_DISTANCE  = 32;
+
+// percent of distance in green (ok)
+# define SAVE_RANGE   40 // means: 40% of max distance is ok
+
+// percent of pixels in yellow (warning)
+# define WARNING_RANGE  80 // 30% of MAX_DISTANCE is warning
+
+// percent of pixels in red (critical)
+# define CRITICAL_RANGE 90 // rest is critical
 
 // When we setup the NeoPixel library, we tell it how many pixels, and which pin to use to send signals.
 // Note that for older NeoPixel strips you might need to change the third parameter--see the strandtest
@@ -28,6 +37,8 @@ int delayval = 2; // delay for half a second
 int maxRange = 200;
 int minRange = 0;
 long duration,distance;
+
+// initialization of the strip and the distance sensor
 void setup() {
   // This is for Trinket 5V 16MHz, you can remove these three lines if you are not using a Trinket
 #if defined (__AVR_ATtiny85__)
@@ -53,32 +64,60 @@ void loop() {
   duration = pulseIn(echoPin, HIGH);
   
   distance = duration/58.2;
-  
-  Serial.println(distance);
+
+  char log[1000];
+  //Serial.println(distance);
   // For a set of NeoPixels the first NeoPixel is 0, second is 1, all the way up to the count of pixels minus one.
 
+  // define some colors
   uint32_t col_off = strip.Color(0, 0, 0);
   uint32_t col_green = strip.Color(0, 50, 0);
-  uint32_t col_yellow = strip.Color(50, 50, 0);
-  uint32_t col_red = strip.Color(50, 0, 0);
+  uint32_t col_yellow = strip.Color(150, 50, 0);
+  uint32_t col_red = strip.Color(255, 0, 0);
 
-  for(int led =0; led < NUMPIXELS; led++){
-    // strip.Color takes RGB values, from 0,0,0 up to 255,255,255
-    if (led < distance){
-      if( distance <= MAX_DISTANCE ) {
-        // wir sind inerhalb des krittischen Bereiches
-        if ( distance > 16 ) {
-          strip.setPixelColor(led, col_green);
-        } else if ( distance > 4 ) {
-          strip.setPixelColor(led, col_yellow);        
-        } else {
-          strip.setPixelColor(led, col_red);        
-        }
+  // based on distance, calculate the max nr of LED to use
+  unsigned long dist_perc = (long(distance * 100) / MAX_DISTANCE);
+  unsigned long max_led = NUMPIXELS - ((NUMPIXELS * dist_perc) / 100); 
+  // Serial.println(max_led);
+
+  //sprintf(log, "distance: %u, max distance: %u, max_led: %u, dist_perc: %u", distance, MAX_DISTANCE, max_led, dist_perc);
+  Serial.println("-------");
+  Serial.println(distance);
+  Serial.println(MAX_DISTANCE);
+  Serial.println(max_led);
+  Serial.println(dist_perc);
+  
+  
+  for(int led = 0; led < NUMPIXELS; led++){
+    // per default, LED is off
+    uint32_t cur_color = col_off;
+    // iterate over all LEDs
+    // start from 0. Check based on current distance and LED pin the color
+    // the first LED is green, the last one is MAX_DISTANCE
+    if( led <= ((SAVE_RANGE) * NUMPIXELS / 100 )) {
+      // we are in the are where the save range is
+      // check distance is also here
+      if( distance <= MAX_DISTANCE) {
+        cur_color = col_green;
       }
-       else {
-        strip.setPixelColor(led, col_off); // Moderately bright green color.
+    } else if( led <= ((WARNING_RANGE) * NUMPIXELS / 100 )) {
+      // we are in the are where the swarningave range is
+      // check distance is also here
+      if( distance <= MAX_DISTANCE) {
+        cur_color = col_yellow;
+      }
+    } else  {
+      // we are in the are where the critical range is
+      // check distance is also here
+      if( distance <= MAX_DISTANCE) {
+        cur_color = col_red;
       }
     }
+    if( led >= max_led ) {
+      // all other LED that distance set to 0
+      cur_color = col_off;
+    }
+    strip.setPixelColor(led, cur_color);
   }
   strip.show(); // This sends the updated pixel color to the hardware.
   delay(0);
