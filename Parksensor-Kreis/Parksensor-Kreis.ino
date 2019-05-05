@@ -30,6 +30,8 @@ long MAX_DISTANCE  = 32;
 // example for more information on possible values.
 Adafruit_NeoPixel strip = Adafruit_NeoPixel(NUMPIXELS, PIN, NEO_GRB + NEO_KHZ800);
 
+
+// variabled for the sonic sensor
 int delayval = 2; // delay for half a second
 #define echoPin 7 // Echo Pin
 #define trigPin 8 // Trigger Pin
@@ -66,9 +68,7 @@ void loop() {
   distance = duration/58.2;
 
   char log[1000];
-  //Serial.println(distance);
-  // For a set of NeoPixels the first NeoPixel is 0, second is 1, all the way up to the count of pixels minus one.
-
+  
   // define some colors
   uint32_t col_off = strip.Color(0, 0, 0);
   uint32_t col_green = strip.Color(0, 50, 0);
@@ -78,9 +78,7 @@ void loop() {
   // based on distance, calculate the max nr of LED to use
   unsigned long dist_perc = (long(distance * 100) / MAX_DISTANCE);
   unsigned long max_led = NUMPIXELS - ((NUMPIXELS * dist_perc) / 100); 
-  // Serial.println(max_led);
-
-  //sprintf(log, "distance: %u, max distance: %u, max_led: %u, dist_perc: %u", distance, MAX_DISTANCE, max_led, dist_perc);
+  
   Serial.println("-------");
   Serial.println(distance);
   Serial.println(MAX_DISTANCE);
