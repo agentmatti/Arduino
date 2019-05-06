@@ -6,7 +6,7 @@
   #include <avr/power.h>
 #endif
 
-// nodeMCU pin assignemnt
+// nodeMCU (ESP) pin assignemnt
 // board name -> GPIO
 // digital pins only
 const uint8_t ESP_D0_PIN = 16;  // User-wake
@@ -26,13 +26,21 @@ const uint8_t ESP_D12_PIN = 10;  // SPIWP
 
 // Which pin on the Arduino is connected to the NeoPixels?
 // On a Trinket or Gemma we suggest changing this to 1
-// either use arduino pin numbers, or use ESP_Dx Pins for esp8266
+// either use arduino pin numbers, or use ESP_Dx Pins for nodeMCU
 #define PIN_STRIP      6
-// ESP sample
+// nodeMCU sample
 // #define PIN ESP_D6_PIN
 
 // How many NeoPixels are attached?
 #define NUMPIXELS      16
+
+// define some colors for the strip
+// colors will be defined in setup() method
+uint32_t col_off = 0;
+uint32_t col_green = 0;
+uint32_t col_yellow = 0;
+uint32_t col_red = 0;
+
 
 // max distance in cm (centimeters) for the sensor 
 long MAX_DISTANCE  = 32;
@@ -51,15 +59,14 @@ long MAX_DISTANCE  = 32;
 // example for more information on possible values.
 Adafruit_NeoPixel strip = Adafruit_NeoPixel(NUMPIXELS, PIN_STRIP, NEO_GRB + NEO_KHZ800);
 
-
 // variabled for the sonic sensor
 int delayval = 2; // delay microseconds for sonic sensor
 
+// PINs for the sonix sensor. Use pin numbes from arduino, or in case
+// of NodeMCU ESP board, the ESP_Dx pin numbers.
 #define EchoPin_Sonic 7 // Echo Pin
 #define TrigPin_Sonic 8 // Trigger Pin
 
-// just to know.
-#define LEDPin 13 // Onboard LED
 int maxRange = 200;
 int minRange = 0;
 long duration,distance;
@@ -73,43 +80,46 @@ void setup() {
   // End of trinket special code
 
   strip.begin(); // This initializes the NeoPixel library.
+
+  // initialize debug console
   Serial.begin (9600);
+
+  // initialize PINs for sonic sensor
   pinMode(TrigPin_Sonic, OUTPUT);
   pinMode(EchoPin_Sonic, INPUT);
-  pinMode(LEDPin, OUTPUT);
+
+  // set some colors for the strip
+  col_off = strip.Color(0, 0, 0);
+  col_green = strip.Color(0, 50, 0);
+  col_yellow = strip.Color(150, 50, 0);
+  col_red = strip.Color(255, 0, 0);
 }
 
+// main loop, will be executed allways
 void loop() {
+  // get the current distance from sonic sensor
   digitalWrite(TrigPin_Sonic, LOW);
   delayMicroseconds(delayval);
-  
   digitalWrite(TrigPin_Sonic, HIGH);
   delayMicroseconds(10);
-  
   digitalWrite(TrigPin_Sonic, LOW);
   duration = pulseIn(EchoPin_Sonic, HIGH);
-  
+  // the distance is the time of the signal / signal speed
+  // this way its in cm
   distance = duration/58.2;
-
-  char log[1000];
-  
-  // define some colors
-  uint32_t col_off = strip.Color(0, 0, 0);
-  uint32_t col_green = strip.Color(0, 50, 0);
-  uint32_t col_yellow = strip.Color(150, 50, 0);
-  uint32_t col_red = strip.Color(255, 0, 0);
 
   // based on distance, calculate the max nr of LED to use
   unsigned long dist_perc = (long(distance * 100) / MAX_DISTANCE);
   unsigned long max_led = NUMPIXELS - ((NUMPIXELS * dist_perc) / 100); 
-  
+
+  // some debug messages on the serial console
   Serial.println("-------");
   Serial.println(distance);
   Serial.println(MAX_DISTANCE);
   Serial.println(max_led);
-  Serial.println(dist_perc);
-  
-  
+  Serial.println(dist_perc);  
+
+  // set each LED of the strip
   for(int led = 0; led < NUMPIXELS; led++){
     // per default, LED is off
     uint32_t cur_color = col_off;
@@ -139,8 +149,11 @@ void loop() {
       // all other LED that distance set to 0
       cur_color = col_off;
     }
+    // now set the color of the pixel
     strip.setPixelColor(led, cur_color);
   }
-  strip.show(); // This sends the updated pixel color to the hardware.
+  // This sends the updated pixel color to the hardware.
+  strip.show(); 
+  // if you want, wat a little between the next loop
   delay(0);
 }
