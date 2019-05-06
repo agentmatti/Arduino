@@ -9,3 +9,15 @@ Verschiedene Farben auf einer lampenkette/kreis hintereinander.
 
 ### Microfon
 Je lauter es ist, desto länger die Lampenkette.
+
+
+
+
+
+
+
+
+
+## Benötigte Sachen
+-Lampenkette
+-Lampenkreis
