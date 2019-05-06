@@ -1,5 +1,6 @@
-// NeoPixel Ring simple sketch (c) 2013 Shae Erisson
-// released under the GPLv3 license to match the rest of the AdaFruit NeoPixel library
+// (c) coderdojo berlin 
+// sample for a distanec sensor with LED strip
+// led strip (ws2812) and sonic sensor
 
 #include <Adafruit_NeoPixel.h>
 #ifdef __AVR__
@@ -67,10 +68,6 @@ int delayval = 2; // delay microseconds for sonic sensor
 #define EchoPin_Sonic 7 // Echo Pin
 #define TrigPin_Sonic 8 // Trigger Pin
 
-int maxRange = 200;
-int minRange = 0;
-long duration,distance;
-
 // initialization of the strip and the distance sensor
 void setup() {
   // This is for Trinket 5V 16MHz, you can remove these three lines if you are not using a Trinket
@@ -79,7 +76,8 @@ void setup() {
 #endif
   // End of trinket special code
 
-  strip.begin(); // This initializes the NeoPixel library.
+  // This initializes the NeoPixel library.
+  strip.begin(); 
 
   // initialize debug console
   Serial.begin (9600);
@@ -95,21 +93,28 @@ void setup() {
   col_red = strip.Color(255, 0, 0);
 }
 
-// main loop, will be executed allways
-void loop() {
+// this function returns the current distance in cm
+long getDistance() {
   // get the current distance from sonic sensor
   digitalWrite(TrigPin_Sonic, LOW);
   delayMicroseconds(delayval);
   digitalWrite(TrigPin_Sonic, HIGH);
   delayMicroseconds(10);
   digitalWrite(TrigPin_Sonic, LOW);
-  duration = pulseIn(EchoPin_Sonic, HIGH);
+  long duration = pulseIn(EchoPin_Sonic, HIGH);
   // the distance is the time of the signal / signal speed
   // this way its in cm
-  distance = duration/58.2;
+  return duration/58.2;
+}
+
+// main loop, will be executed allways
+void loop() {
+  // get the current distance from sonic sensor
+  long distance = getDistance();
 
   // based on distance, calculate the max nr of LED to use
   unsigned long dist_perc = (long(distance * 100) / MAX_DISTANCE);
+  // this is the highest LED number which should be switched on based on the distance
   unsigned long max_led = NUMPIXELS - ((NUMPIXELS * dist_perc) / 100); 
 
   // some debug messages on the serial console
@@ -127,19 +132,19 @@ void loop() {
     // start from 0. Check based on current distance and LED pin the color
     // the first LED is green, the last one is MAX_DISTANCE
     if( led <= ((SAVE_RANGE) * NUMPIXELS / 100 )) {
-      // we are in the are where the save range is
+      // we are in the area where of the save range
       // check distance is also here
       if( distance <= MAX_DISTANCE) {
         cur_color = col_green;
       }
     } else if( led <= ((WARNING_RANGE) * NUMPIXELS / 100 )) {
-      // we are in the are where the swarningave range is
+      // we are in the area where of the warning range
       // check distance is also here
       if( distance <= MAX_DISTANCE) {
         cur_color = col_yellow;
       }
     } else  {
-      // we are in the are where the critical range is
+      // we are in the area where the critical range is
       // check distance is also here
       if( distance <= MAX_DISTANCE) {
         cur_color = col_red;
