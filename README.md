@@ -1,8 +1,23 @@
 # Arduino
-## Projekte mit einer Lampenkette
-### Parksensor
-Zeigt auf der Lampenkette an, wie weit etwas entfernt ist.
+## Projekte mit einer Lampenkette/kreis
+
+### Parksensor 
+Zeigt auf einem Lampenkreis/kette an, wie weit etwas entfernt ist.
+
 ### Laufband
-Verschiedene Farben hintereinander.
+Verschiedene Farben auf einer lampenkette/kreis hintereinander.
+
 ### Microfon
-Je lauter desto länger die Lampenkette.
+Je lauter es ist, desto länger die Lampenkette.
+
+
+
+
+
+
+
+
+
+## Benötigte Sachen
+### Lampenkette
+### Lampenkreis
