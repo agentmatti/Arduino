@@ -20,4 +20,5 @@ Je lauter es ist, desto länger die Lampenkette.
 
 ## Benötigte Sachen
 -Lampenkette
+
 -Lampenkreis
