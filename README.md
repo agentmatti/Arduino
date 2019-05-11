@@ -12,14 +12,3 @@ Je lauter es ist, desto länger die Lampenkette.
 
 ### Beispiele
 Sachen vom CoderDojo für Veranstaltungen, Messen, u.s.w..
-
-
-
-
-
-
-
-
-## Benötigte Sachen
-### Lampenkette
-### Lampenkreis
