@@ -10,6 +10,8 @@ Verschiedene Farben auf einer lampenkette/kreis hintereinander.
 ### Microfon
 Je lauter es ist, desto länger die Lampenkette.
 
+### Beispiele
+Sachen vom CoderDojo für Veranstaltungen, Messen, u.s.w..
 
 
 
