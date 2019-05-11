@@ -10,4 +10,4 @@ Du benötigst
 - Ultraschallsensor HC-SR-04
 
 ## Schaltplan
-Der Bauteile wie folgt verbinden: [Schaltplan](./Schaltung.png)
+Der Bauteile wie folgt verbinden: ![Schaltplan](./Schaltung.png)
