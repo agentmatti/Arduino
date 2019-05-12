@@ -4,8 +4,6 @@ Diese Beispielprogramme zeigen auf einfache Weise wie das Lichtband agesteuert w
 
 ## LED Sample 1
 
-## LED Sample 2
-
 
 ## Bauteile
 Du benötigst
