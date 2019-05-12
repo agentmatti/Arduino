@@ -14,4 +14,4 @@ Du benötigst
 - WS2812 LED Band mit min 10 LED
 
 ## Schaltplan
-Der Bauteile wie folgt verbinden: ![Schaltplan](./schaltplan/LED Simple_1-2.fzz)
+Der Bauteile wie folgt verbinden: ![Schaltplan](./schaltplan/LED_Simple.fzz)
