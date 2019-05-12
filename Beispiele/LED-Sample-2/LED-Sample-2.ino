@@ -38,30 +38,40 @@ void setup() {
   pixels.begin(); // INITIALIZE NeoPixel strip object (REQUIRED)
 }
 
+
 void loop() {
   pixels.clear(); // Set all pixel colors to 'off'
   DEBUG_MSG("loop ...\n");
-
+  uint8_t LEDgreen = NUMPIXELS / 10;
+  uint8_t pause = 1 * 1000 / NUMPIXELS;
   // The first NeoPixel in a strand is #0, second is 1, all the way up
   // to the count of pixels minus one.
 
   for(int i=0; i<NUMPIXELS; i++) {
-        pixels.setPixelColor(i, pixels.Color(50, 0, 0));
+        pixels.setPixelColor(i, pixels.Color(0, 0, 10));
   }
   pixels.show();
    
     for(int i=0; i<NUMPIXELS; i++) {
-        pixels.setPixelColor(i, pixels.Color(255, 0, 0));
+      for(int c=0; c<LEDgreen; c++) {
+        pixels.setPixelColor(i+c, pixels.Color(0, 255, 0));
+      }
+//        pixels.setPixelColor(i+0, pixels.Color(0, 255, 0));
+//        pixels.setPixelColor(i+1, pixels.Color(0, 255, 0));
+//        pixels.setPixelColor(i+2, pixels.Color(0, 255, 0));
+//        pixels.setPixelColor(i+3, pixels.Color(0, 255, 0));
+//        pixels.setPixelColor(i+4, pixels.Color(0, 255, 0));
         pixels.show();
-        delay(50);
+        delay(pause);
         pixels.setPixelColor(i, pixels.Color(10, 0, 0));
     }
-   
-//    for(int i=NUMPIXELS; i>0; i--) {
-//        pixels.setPixelColor(i, pixels.Color(255, 0, 0));
-//        pixels.show();
-//        delay(50);
-//        pixels.setPixelColor(i, pixels.Color(50, 0, 0));
-//    }
+    for(int i=NUMPIXELS; i>0; i--) {
+       for(int c=0; c<LEDgreen; c++) {
+        pixels.setPixelColor(i-c, pixels.Color(0, 255, 0));
+      }
+        pixels.show();
+        delay(pause);
+        pixels.setPixelColor(i, pixels.Color(0, 0, 10));
+    }
   
 } /** Ende of programm  **/
