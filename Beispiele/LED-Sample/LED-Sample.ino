@@ -14,7 +14,7 @@
 #endif
 
 // Which pin on the Arduino is connected to the NeoPixels?
-#define PIN        3 // On Trinket or Gemma, suggest changing this to 1
+#define PIN        6 // On Trinket or Gemma, suggest changing this to 1
 
 // How many NeoPixels are attached to the Arduino?
 #define NUMPIXELS 16 // Popular NeoPixel ring size
