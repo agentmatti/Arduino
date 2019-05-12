@@ -11,7 +11,7 @@ Diese Beispielprogramme zeigen auf einfache Weise wie das Lichtband agesteuert w
 Du benötigst
 - NodeMCU Board
 - Widerstand
-- WS2812 LED Band mit min 10 LED
+- WS2812 LED Band mit mindestens 10 LED
 
 ## Schaltplan
 Der Bauteile wie folgt verbinden: ![Schaltplan](./schaltplan/LED_Simple.png)
