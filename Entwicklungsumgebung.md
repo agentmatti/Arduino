@@ -9,5 +9,7 @@ Bei Arduino IDE findest du unter Datei die Voreinstellungen. Dort kopierst du fo
 ![Voreinstellungen](./Bilder/URL.png) 
 
 Unter Werkzeuge|Board findest du den Boardverwalter. In die Suchleiste gibst du nodemcu ein und installierst die Bibliothek mit der Version 2.4.0.
-*Bild*
+![Bibilotheksversion](./Bilder/Arduino_esp_bibliothek.png)
+
 Nach der installation muss das Board ausgewählt werden. Unter Werkzeuge|Board Wählst du NodeMCU 1.0 aus.
+![Auswahl](./Bilder/Arduino_esp_auswahl.png)
