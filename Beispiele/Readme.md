@@ -73,7 +73,7 @@ Um einen Pixel anzuschalten, wird folgende Methode verwendet:
 ```c
 pixels.setPixelColor(i, pixels.Color(50, 0, 0));
 ```
-Variable i ist dabei die NUmmer des Pixels, wobei mit 0 begonnen wird zu zählen.
+Variable i ist dabei die Nummer des Pixels, wobei mit 0 begonnen wird zu zählen.
 Die Farbe wird über die Color Methode gesetzt. Hierbei sind die 3 Parameter die Farbanteile rot, grün und blau. Die Werte können jeweils zwischen 0 und 255 liegen.  `pixels.Color(50,0,0)` lässt die LED also rot leuchten.
 
 Um die Farbe auf das LED Band zu setzen, muss noch die Methode
