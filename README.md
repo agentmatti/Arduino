@@ -3,7 +3,7 @@
 
 ## Projekte
 
-Folgende Projekte ginbt gibt es hier:
+Folgende Projekte gibt gibt es hier:
 
 ### Beispiele
 [Beispiele](./Beispiele/)
