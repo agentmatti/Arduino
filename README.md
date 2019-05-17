@@ -1,4 +1,4 @@
-# Arduino
+﻿# Arduino
 ## Projekte mit einer Lampenkette/LED Kreis
 
 ## Projekte
@@ -22,9 +22,6 @@ Zeigt auf einem Lampenkreis/kette an, wie weit etwas entfernt ist.
 [Laufband](./Laufband/)
 
 Verschiedene Farben auf einer lampenkette/kreis hintereinander.
-
-### Microfon
-Je lauter es ist, desto länger die Lampenkette.
 
 ## Entwicklungsumgebung
 
