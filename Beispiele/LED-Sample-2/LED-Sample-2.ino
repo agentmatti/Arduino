@@ -39,34 +39,33 @@ void loop() {
   // The first NeoPixel in a strand is #0, second is 1, all the way up
   // to the count of pixels minus one.
 
-  for(int i=0; i<NUMPIXELS; i++) {
-        pixels.setPixelColor(i, pixels.Color(0, 0, 10));
+  for(int led=0; led<NUMPIXELS; led++) {
+        pixels.setPixelColor(led, pixels.Color(0, 0, 10));
   }
   pixels.show();
    
-    for(int i=0; i<NUMPIXELS; i++) {
-
+  for(int led=0; led<NUMPIXELS; led++) {
 //        das ist die einfache Variante
-//        pixels.setPixelColor(i+0, pixels.Color(0, 255, 0));
-//        pixels.setPixelColor(i+1, pixels.Color(0, 255, 0));
-//        pixels.setPixelColor(i+2, pixels.Color(0, 255, 0));
-//        pixels.setPixelColor(i+3, pixels.Color(0, 255, 0));
-//        pixels.setPixelColor(i+4, pixels.Color(0, 255, 0));
-      // besser gehts mit einer Schleife
-      for(int c=0; c<LEDgreen; c++) {
-        pixels.setPixelColor(i+c, pixels.Color(0, 255, 0));
-      }
-        pixels.show();
-        delay(pause);
-        pixels.setPixelColor(i, pixels.Color(10, 0, 0));
+//        pixels.setPixelColor(led+0, pixels.Color(0, 255, 0));
+//        pixels.setPixelColor(led+1, pixels.Color(0, 255, 0));
+//        pixels.setPixelColor(led+2, pixels.Color(0, 255, 0));
+//        pixels.setPixelColor(led+3, pixels.Color(0, 255, 0));
+//        pixels.setPixelColor(led+4, pixels.Color(0, 255, 0));
+    // besser gehts mit einer Schleife
+    for(int c=0; c<LEDgreen; c++) {
+      pixels.setPixelColor(led+c, pixels.Color(0, 255, 0));
     }
-    for(int i=NUMPIXELS; i>0; i--) {
-       for(int c=0; c<LEDgreen; c++) {
-        pixels.setPixelColor(i-c, pixels.Color(0, 255, 0));
-      }
-        pixels.show();
-        delay(pause);
-        pixels.setPixelColor(i, pixels.Color(0, 0, 10));
+    pixels.show();
+    delay(pause);
+    pixels.setPixelColor(led, pixels.Color(10, 0, 0));
+  }
+  for(int led = NUMPIXELS; led > 0; led--) {
+     for(int c=0; c<LEDgreen; c++) {
+      pixels.setPixelColor(led - c, pixels.Color(0, 255, 0));
     }
+    pixels.show();
+    delay(pause);
+    pixels.setPixelColor(led, pixels.Color(0, 0, 10));
+  }
   
 } /** Ende of programm  **/

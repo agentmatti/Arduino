@@ -38,23 +38,26 @@ void loop() {
   // The first NeoPixel in a strand is #0, second is 1, all the way up
   // to the count of pixels minus one.
 
-  for(int i=0; i<NUMPIXELS; i++) {
-        pixels.setPixelColor(i, pixels.Color(10, 0, 0));
+  // erstmal all LED leicht rot schalten
+  for(int led = 0; led < NUMPIXELS; led++) {
+        pixels.setPixelColor(led, pixels.Color(10, 0, 0));
   }
+  // und aufs Band senden
   pixels.show();
-   
-    for(int i=0; i<NUMPIXELS; i++) {
-        pixels.setPixelColor(i, pixels.Color(255, 0, 0));
-        pixels.show();
-        delay(50);
-        pixels.setPixelColor(i, pixels.Color(10, 0, 0));
-    }
-   
-//    for(int i=NUMPIXELS; i>0; i--) {
-//        pixels.setPixelColor(i, pixels.Color(255, 0, 0));
+
+  // nun alle LED einmal hellrot schalten, kurz warten und wieder dunkelrot.
+  for(int led = 0; led < NUMPIXELS; led ++) {
+      pixels.setPixelColor(led, pixels.Color(255, 0, 0));
+      pixels.show();
+      delay(50);
+      pixels.setPixelColor(led, pixels.Color(10, 0, 0));
+  }
+//    das wäre dafür dass alle LED 
+//    for(int led = NUMPIXELS; led > 0; led--) {
+//        pixels.setPixelColor(led, pixels.Color(255, 0, 0));
 //        pixels.show();
 //        delay(50);
-//        pixels.setPixelColor(i, pixels.Color(50, 0, 0));
+//        pixels.setPixelColor(led, pixels.Color(50, 0, 0));
 //    }
   
 } /** Ende of programm  **/
