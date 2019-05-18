@@ -37,7 +37,8 @@ Jetzt muss definiert werden über welchen Pin am ESP12b das LED Band (WS2812B) v
 
 ```c
 // auf dem ESP8266 ist der RX0 Pin die Nr 6
-#define PIN    6
+// wir verwenden aber D8
+#define PIN        D8
 // Dann noch … wie viele LEDs stehen uns zur Verfügung? 
 #define NUMPIXELS 16
 // Setup der Adafruit_NeoPixel-Lib vor der Benutzung … 
@@ -62,7 +63,7 @@ Die loop() methode wird vom Prozessor immer wieder aufgerufen, solange Strom anl
 void loop() {
   // initialisieren der Liste der LED
   pixels.clear();
-  DEBUG_MSG("loop ...\n");
+  Serial.println("loop ...\n");
   // Und hier steht jetzt Dein Code …  für die LED
   
 }
@@ -71,10 +72,12 @@ void loop() {
 Tipps:
 Um einen Pixel anzuschalten, wird folgende Methode verwendet:
 ```c
-pixels.setPixelColor(i, pixels.Color(50, 0, 0));
+pixels.setPixelColor(0, pixels.Color(50, 0, 0));
 ```
-Variable i ist dabei die Nummer des Pixels, wobei mit 0 begonnen wird zu zählen.
+Der erste Wert 0 ist dabei die Nummer des Pixels, wobei mit 0 begonnen wird zu zählen.
 Die Farbe wird über die Color Methode gesetzt. Hierbei sind die 3 Parameter die Farbanteile rot, grün und blau. Die Werte können jeweils zwischen 0 und 255 liegen.  `pixels.Color(50,0,0)` lässt die LED also rot leuchten.
+
+Um nun alle LED anzuschalten, muss die Methode für jede LED aufgerufen werden. Das kann man durch kopieren der Zeile machen, wobei der erste Parameter immer um 1 erhöht wird. Besser geht das natürlich mit einer Schleife.
 
 Um die Farbe auf das LED Band zu setzen, muss noch die Methode
 ```c

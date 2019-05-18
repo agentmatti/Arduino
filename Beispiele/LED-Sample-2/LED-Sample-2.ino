@@ -7,15 +7,9 @@
  #include <avr/power.h> // Required for 16 MHz Adafruit Trinket
 #endif
 
-#ifdef DEBUG_ESP_PORT
-#define DEBUG_MSG(...) DEBUG_ESP_PORT.printf( __VA_ARGS__ )
-#else
-#define DEBUG_MSG(...)
-#endif
-
-// Which pin on the Arduino is connected to the NeoPixels?
-#define PIN        6 // On Trinket or Gemma, suggest changing this to 1
-
+// Which pin on the ESP is connected to the NeoPixels?
+#define PIN        D8
+//#define PIN         3 // this would be RST
 // How many NeoPixels are attached to the Arduino?
 #define NUMPIXELS 16 // Popular NeoPixel ring size
 
@@ -39,7 +33,7 @@ void setup() {
 
 void loop() {
   pixels.clear(); // Set all pixel colors to 'off'
-  DEBUG_MSG("loop ...\n");
+  Serial.println("loop ...\n");
   uint8_t LEDgreen = NUMPIXELS / 10;
   uint8_t pause = .5 * 1000 / NUMPIXELS;
   // The first NeoPixel in a strand is #0, second is 1, all the way up
@@ -51,14 +45,17 @@ void loop() {
   pixels.show();
    
     for(int i=0; i<NUMPIXELS; i++) {
-      for(int c=0; c<LEDgreen; c++) {
-        pixels.setPixelColor(i+c, pixels.Color(0, 255, 0));
-      }
+
+//        das ist die einfache Variante
 //        pixels.setPixelColor(i+0, pixels.Color(0, 255, 0));
 //        pixels.setPixelColor(i+1, pixels.Color(0, 255, 0));
 //        pixels.setPixelColor(i+2, pixels.Color(0, 255, 0));
 //        pixels.setPixelColor(i+3, pixels.Color(0, 255, 0));
 //        pixels.setPixelColor(i+4, pixels.Color(0, 255, 0));
+      // besser gehts mit einer Schleife
+      for(int c=0; c<LEDgreen; c++) {
+        pixels.setPixelColor(i+c, pixels.Color(0, 255, 0));
+      }
         pixels.show();
         delay(pause);
         pixels.setPixelColor(i, pixels.Color(10, 0, 0));

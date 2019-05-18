@@ -7,14 +7,9 @@
  #include <avr/power.h> // Required for 16 MHz Adafruit Trinket
 #endif
 
-#ifdef DEBUG_ESP_PORT
-#define DEBUG_MSG(...) DEBUG_ESP_PORT.printf( __VA_ARGS__ )
-#else
-#define DEBUG_MSG(...)
-#endif
-
-// Which pin on the Arduino is connected to the NeoPixels?
-#define PIN        3 // On Trinket or Gemma, suggest changing this to 1
+// Which pin on the ESP is connected to the NeoPixels?
+#define PIN        D8
+//#define PIN         3 // this would be RST
 
 // How many NeoPixels are attached to the Arduino?
 #define NUMPIXELS 16 // Popular NeoPixel ring size
@@ -24,8 +19,6 @@
 // strips you might need to change the third parameter -- see the
 // strandtest example for more information on possible values.
 Adafruit_NeoPixel pixels(NUMPIXELS, PIN, NEO_GRB + NEO_KHZ800);
-
-#define DELAYVAL 500 // Time (in milliseconds) to pause between pixels
 
 void setup() {
   // These lines are specifically to support the Adafruit Trinket 5V 16 MHz.
@@ -40,13 +33,13 @@ void setup() {
 
 void loop() {
   pixels.clear(); // Set all pixel colors to 'off'
-  DEBUG_MSG("loop ...\n");
+  Serial.println("loop ...\n");
 
   // The first NeoPixel in a strand is #0, second is 1, all the way up
   // to the count of pixels minus one.
 
   for(int i=0; i<NUMPIXELS; i++) {
-        pixels.setPixelColor(i, pixels.Color(50, 0, 0));
+        pixels.setPixelColor(i, pixels.Color(10, 0, 0));
   }
   pixels.show();
    
