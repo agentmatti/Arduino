@@ -10,6 +10,7 @@
 // Which pin on the ESP is connected to the NeoPixels?
 #define PIN        D8
 //#define PIN         3 // this would be RST
+
 // How many NeoPixels are attached to the Arduino?
 #define NUMPIXELS 20 // Popular NeoPixel ring size
 
@@ -30,42 +31,22 @@ void setup() {
   pixels.begin(); // INITIALIZE NeoPixel strip object (REQUIRED)
 }
 
-
 void loop() {
   pixels.clear(); // Set all pixel colors to 'off'
   Serial.println("loop ...\n");
-  uint8_t LEDgreen = NUMPIXELS / 10;
-  uint8_t pause = .5 * 1000 / NUMPIXELS;
+
   // The first NeoPixel in a strand is #0, second is 1, all the way up
   // to the count of pixels minus one.
-
-  for(int led=0; led<NUMPIXELS; led++) {
-        pixels.setPixelColor(led, pixels.Color(0, 0, 10));
-  }
-  pixels.show();
-   
-  for(int led=0; led<NUMPIXELS; led++) {
-//        das ist die einfache Variante
-//        pixels.setPixelColor(led+0, pixels.Color(0, 255, 0));
-//        pixels.setPixelColor(led+1, pixels.Color(0, 255, 0));
-//        pixels.setPixelColor(led+2, pixels.Color(0, 255, 0));
-//        pixels.setPixelColor(led+3, pixels.Color(0, 255, 0));
-//        pixels.setPixelColor(led+4, pixels.Color(0, 255, 0));
-    // besser gehts mit einer Schleife
-    for(int c=0; c<LEDgreen; c++) {
-      pixels.setPixelColor(led+c, pixels.Color(0, 255, 0));
+  for( int blau = 0; blau < 100; blau++ ) {
+    for( int rot = 0; rot < 100; rot++ ) {
+      for( int gruen = 0; gruen< 100; gruen++ ) {
+        for(int led = 0; led < NUMPIXELS; led++) {
+          pixels.setPixelColor(led, pixels.Color(rot, gruen, blau));
+        }
+        // und aufs Band senden
+        pixels.show();
+       // delay(5);
+      }
     }
-    pixels.show();
-    delay(pause);
-    pixels.setPixelColor(led, pixels.Color(10, 0, 0));
-  }
-  for(int led = NUMPIXELS; led > 0; led--) {
-     for(int c=0; c<LEDgreen; c++) {
-      pixels.setPixelColor(led - c, pixels.Color(0, 255, 0));
-    }
-    pixels.show();
-    delay(pause);
-    pixels.setPixelColor(led, pixels.Color(0, 0, 10));
-  }
-  
+  }  
 } /** Ende of programm  **/

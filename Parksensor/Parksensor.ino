@@ -47,8 +47,8 @@ Adafruit_NeoPixel strip = Adafruit_NeoPixel(NUMPIXELS, PIN_STRIP, NEO_GRB + NEO_
 int delayval = 2; // delay microseconds for sonic sensor
 // PINs for the sonix sensor. Use pin numbes from arduino, or in case
 // of NodeMCU ESP board, the ESP_Dx pin numbers.
-#define EchoPin_Sonic D6 // Echo Pin
-#define TrigPin_Sonic D7 // Trigger Pin
+#define EchoPin_Sonic D7 // Echo Pin
+#define TrigPin_Sonic D6 // Trigger Pin
 
 
 // initialization of the strip and the distance sensor
