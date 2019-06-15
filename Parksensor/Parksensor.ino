@@ -10,27 +10,10 @@
 // nodeMCU (ESP) pin assignemnt
 // board name -> GPIO
 // digital pins only
-const uint8_t ESP_D0_PIN = 16;  // User-wake
-const uint8_t ESP_D1_PIN = 5;
-const uint8_t ESP_D2_PIN = 4;
-const uint8_t ESP_D3_PIN = 0;   
-const uint8_t ESP_D4_PIN = 2;   // TXD1 // also LED
-const uint8_t ESP_D5_PIN = 14;  // HSPICLK
-const uint8_t ESP_D6_PIN = 12;  // HSPIQ
-const uint8_t ESP_D7_PIN = 13;  // RXD2 - HSPID
-const uint8_t ESP_D8_PIN = 15;  // TXD2 - HSPID
-const uint8_t ESP_D9_PIN = 3;   // RXD0
-const uint8_t ESP_D10_PIN = 1;   // TXD0
-const uint8_t ESP_D11_PIN = 9;   // SPIHD
-const uint8_t ESP_D12_PIN = 10;  // SPIWP
-
 
 // Which pin on the Arduino is connected to the NeoPixels?
-// On a Trinket or Gemma we suggest changing this to 1
 // either use arduino pin numbers, or use ESP_Dx Pins for nodeMCU
-#define PIN_STRIP      6
-// nodeMCU sample
-// #define PIN ESP_D6_PIN
+#define PIN_STRIP      D8
 
 // How many NeoPixels are attached?
 #define NUMPIXELS      16
@@ -62,11 +45,11 @@ Adafruit_NeoPixel strip = Adafruit_NeoPixel(NUMPIXELS, PIN_STRIP, NEO_GRB + NEO_
 
 // variabled for the sonic sensor
 int delayval = 2; // delay microseconds for sonic sensor
-
 // PINs for the sonix sensor. Use pin numbes from arduino, or in case
 // of NodeMCU ESP board, the ESP_Dx pin numbers.
-#define EchoPin_Sonic 7 // Echo Pin
-#define TrigPin_Sonic 8 // Trigger Pin
+#define EchoPin_Sonic D7 // Echo Pin
+#define TrigPin_Sonic D6 // Trigger Pin
+
 
 // initialization of the strip and the distance sensor
 void setup() {
