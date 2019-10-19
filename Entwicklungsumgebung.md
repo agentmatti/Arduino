@@ -9,7 +9,7 @@ Beim Microsoft Store das machen.
 
 ### Linux / Ubuntu
 
-Von Arduino.cc die 64 Bit Linux Variante Laden:
+Von Arduino.cc die 64 Bit Linux Variante Laden (https://www.arduino.cc/en/Main/Software):
 
 ![Linux Download](./Bilder/Linux_Download.png)
 
