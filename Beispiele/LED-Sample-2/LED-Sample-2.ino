@@ -8,10 +8,11 @@
 #endif
 
 // Which pin on the ESP is connected to the NeoPixels?
-#define PIN        D8
+//wenn esp dann D8 wenn arduino 6
+#define PIN        6
 //#define PIN         3 // this would be RST
 // How many NeoPixels are attached to the Arduino?
-#define NUMPIXELS 20 // Popular NeoPixel ring size
+#define NUMPIXELS 144 // Popular NeoPixel ring size
 
 // When setting up the NeoPixel library, we tell it how many pixels,
 // and which pin to use to send signals. Note that for older NeoPixel
@@ -34,8 +35,8 @@ void setup() {
 void loop() {
   pixels.clear(); // Set all pixel colors to 'off'
   Serial.println("loop ...\n");
-  uint8_t LEDgreen = NUMPIXELS / 10;
-  uint8_t pause = .5 * 1000 / NUMPIXELS;
+  uint8_t LEDgreen = NUMPIXELS / 20;
+  uint8_t pause = .1 * 1000 / NUMPIXELS;
   // The first NeoPixel in a strand is #0, second is 1, all the way up
   // to the count of pixels minus one.
 
@@ -53,7 +54,7 @@ void loop() {
 //        pixels.setPixelColor(led+4, pixels.Color(0, 255, 0));
     // besser gehts mit einer Schleife
     for(int c=0; c<LEDgreen; c++) {
-      pixels.setPixelColor(led+c, pixels.Color(0, 255, 0));
+      pixels.setPixelColor(led+c, pixels.Color(0, 100, 0));
     }
     pixels.show();
     delay(pause);
@@ -61,7 +62,7 @@ void loop() {
   }
   for(int led = NUMPIXELS; led > 0; led--) {
      for(int c=0; c<LEDgreen; c++) {
-      pixels.setPixelColor(led - c, pixels.Color(0, 255, 0));
+      pixels.setPixelColor(led - c, pixels.Color(0, 100, 0));
     }
     pixels.show();
     delay(pause);
